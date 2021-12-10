@@ -1,0 +1,587 @@
+# Datos
+
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(RPostgreSQL)
+library(dbplyr)
+library(getPass)
+library(RPostgres)
+library(DBI)
+library(ggplot2)
+library(plotly)
+library(bookdown)
+library(corrplot)
+library(corrgram)
+library(mice)
+library(VIM)
+library(tidyverse)
+library(hrbrthemes)
+library(gridExtra)
+library(outliers)
+
+
+```
+
+
+## Llamada de los datos de Heroku
+
+```{r}
+datos= DBI::dbConnect(RPostgres::Postgres(),
+  dbname = 'd90504p356rmtr',
+  host = 'ec2-54-157-16-125.compute-1.amazonaws.com',
+  port = '5432',
+  user = 'ssvztaczeuzorq',
+  password = '6aa5bf4b35d7b073f426319d064adb34342539b84b39922c2c91b68e1076a62e'
+)
+```
+
+
+Se adaptan los datos a un dataframe y se visualizan
+
+```{r}
+ied <- tbl(datos, "fc_pmi")
+
+ied = as.data.frame(ied)
+head(ied)
+```
+
+
+
+## Tratamiento de Datos
+
+De acuerdo a nuestro dataframe tenemos datos para los años 2018 y 2019 por lo cual se filtra y realiza el EDA por cada año.
+
+**Año 2019** 
+
+```{r}
+ied2019= ied %>%
+  filter(ano==2019)
+head(ied2019)
+```
+
+## Resumen 
+
+```{r}
+summary(ied2019)
+```
+
+
+Nos presentan variables categóricas como son localidad, colegio, procesos, categorias, componestes de gestión, criterios y tenemos las variables numéricas en un rango de 0.4535 hasta 0.8988, además el summary nos muestra que las columnas de los datos numéricos presentan datos faltantes, 41 por cada columna.
+
+
+## Análisis de los NA
+
+
+Ahora se realiza el análisis de los datos faltantes.
+
+```{r}
+md.pattern(ied2019)
+```
+
+
+Existen 1504 filas que no presentan datos faltantes. Hay 12 filas que presentan al menos 6 datos faltantes y
+29 filas que presentan 7 datos faltantes.  Pareciera que en los indice de matemáticas, lectura, sociales, naturales e inglés nos hacen falta 41 datos, mientran que en el indice global nos hacen falta 29.
+
+
+```{r}
+aggr(ied2019,numbers=TRUE)
+```
+
+El 97.35% de las listas no tienen datos faltantes. El 2.65% de las listas presentan datos faltantes ubicandose en las columnas de Colegio e indices (global, soc, lectura, mat, nat, ingl).
+
+
+```{r}
+marginplot(ied2019[c(10,11)])
+```
+
+No se observa un patrón de los datos faltantes.
+
+Como la proporción de datos faltantes representan menos del 5% se procede a retirar los NA. 
+
+
+```{r}
+ied2019naomit=na.omit(ied2019)
+```
+
+
+A continuación se compara la distribución de los datos del dataframe contra la nueva distribución sin NA.
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE} 
+ggp1 <- ggplot(data.frame(value=ied2019$ind_global), aes(x=value)) +
+  geom_histogram(fill="#FBD000", color="#E52521", alpha=0.9) +
+  ggtitle("Distribución Original") +
+  xlab('ind_global') + ylab('Frequency') +
+  theme_ipsum() +
+  theme(plot.title = element_text(size=15))
+
+ggp2 <- ggplot(data.frame(value=ied2019naomit$ind_global), aes(x=value)) +
+  geom_histogram(fill="#43B047", color="#049CD8", alpha=0.9) +
+  ggtitle("Distribución sin NA") +
+  xlab('ind_global') + ylab('Frequency') +
+  theme_ipsum() +
+  theme(plot.title = element_text(size=15))
+
+grid.arrange(ggp1, ggp2, ncol = 2)
+```
+
+
+Se observa que las distribuciones permanecen iguales para la variable ind_global con el retiro de los NA.
+
+
+## Análisis de las Variables Categóricas
+
+```{r}
+p1<-plot_ly(ied2019naomit, x= ~localidad)%>%
+  add_histogram()
+
+p2<-plot_ly(ied2019naomit, x= ~procesos)%>%
+  add_histogram()
+
+p3<-plot_ly(ied2019naomit, x= ~area)%>%
+  add_histogram()
+
+p4<-plot_ly(ied2019naomit, x= ~componente_gestion)%>%
+  add_histogram()
+
+p5<-plot_ly(ied2019naomit, x=~criterio)%>%
+  add_histogram()
+
+p6<-plot_ly(ied2019naomit, x=~categoria)%>%
+  add_histogram()
+
+subplot(p1, p2,p3,p4,p5,p6) %>% hide_legend()
+```
+
+
+Se observa que en la variable localidad (Azul) los colegios con mayor demanda en planes de mejoramiento se encuentran en la región occidental.
+
+Las áreas de gestión (verde) presenta una mayor incidencia  la gestión académica, seguida de la gestión directiva.
+
+En la gráfica de procesos (amarilla) los picos sobresalientes corresponden a AdPFR (administración de recursos y planta física), seguido de SegA (seguimiento académico)procesos correspondientes a Gestión Académica y Gestión Directiva.
+
+En los componenetes de gestión te muestran con mayor preferencia tenemos AdReAp (adquisición de recursos para el aprendizaje), seguido de SegE (seguimiento a egresados)y EsF(escuela familia).  Estos componentes corresponden a la Gestión Administrativa, Gestión Academica y Gestión Comunitaria respectivamente.
+
+
+En lo que respecta a el criterio observamos que la mayoria de los colegios se encuentran en pertinencia y apropiación dentro de sus planes de mejora. Gráfica (morada).
+
+Enla gráfica de categorias (marrón) observamos que los colegios tienen clasificación en su mayoria "B" seguido de la "C".
+
+
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE} 
+plot_ly(ied2019, x = ~categoria, y = ~area)
+plot_ly(ied2019, x = ~area, y = ~procesos)
+```
+
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE}
+plot_ly(ied2019, x = ~area, y = ~componente_gestion)
+plot_ly(ied2019, x = ~categoria, y = ~componente_gestion)
+
+```
+
+Al comparar la relación entre las áreas y las categorias se ve que los colegios con categoria "C" le apuntan fuertemente en sus planes de mejoramiento a los componentes de Gestión Académica.
+
+Al confrontar áreas y procesos se observa que las áreas administrativas tienen dos procesos recurrentes en los planes de mejoramiento: la AdPFR (administración de plata física y recursos), seguida de TaHu (talento humano).  En el área de gestión académica el procesos que mas se presenta es seguimiento académico.  En el área de gestión comunitaria el proceso mas importante es PreR (prevención de riesgos).
+
+Al cotejar área y componentes de gestión se observa nuevamente que las áreas académica, administrativa y comunitaria presentan como componentes mas superlativos el seguimiento a egresados(SegE), seguridad y protección (SPRT), escuela fmailia (EscF) respectivamente.
+
+Al relación la categoria y los componentes de gestión se ve marcada la tendencia entre los colegios ubicados en la categoria "C" dentro de sus planes de mejoramiento apuntando a los componentes AdReAp (adquisicón de recursos para el aprendizaje) y EscF (escuela familia).
+
+
+
+## Análisis de las Variables Numéricas
+
+Seleccionamos las columnas numéricas y formamos una nueva base de datos
+
+```{r}
+df<- select(ied2019naomit,ind_global,ind_mat,ind_lectura,ind_soc,ind_nat,ind_ingl)
+df=as.data.frame(df)
+```
+
+```{r}
+cor(df)
+corrgram(cor(df))
+```
+
+Existe una fuerte correlación directa entre las variables numéricas entendiendose que puede ser una combinación lineal.
+
+```{r}
+p <- plot_ly(ied2019naomit, color = I("black"),
+             alpha = 0.1, boxpoints = "suspectedoutliers")
+p1 <- p %>% add_boxplot(y = ~ ind_global)
+p2 <- p %>% add_boxplot(y = ~ ind_ingl)
+p3 <- p %>% add_boxplot(y = ~ ind_lectura)
+p4 <- p %>% add_boxplot(y = ~ ind_mat)
+p5 <- p %>% add_boxplot(y = ~ ind_nat)
+p6 <- p %>% add_boxplot(y = ~ ind_soc)
+subplot(
+  p1, p2,p3, p4,p5,p6,  shareY = TRUE,
+  widths = c(0.16, 0.16, 0.16, 0.16, 0.16, 0.16), margin = 0
+) %>% hide_legend ()
+```
+
+Pueden existir datos atipicos dentro de los valores de cada indice, donde se ve que el comportamiento de la variable indice matemática presenta una mediana de 0.7 y se representa como la de mayor valor entre los demás indices.
+
+Los valores mas bajos los presenta el indice de inglés. 
+
+Los valores mas dispersos los presenta el indice de sociales.
+
+
+Analicemos la relación entre el indice global y la categoría
+
+```{r}
+p <- plot_ly(ied2019naomit, y = ~ind_global, color = I("black"),
+             alpha = 0.1, boxpoints = "suspectedoutliers")
+p1 <- p %>% add_boxplot(x = "Overall")
+p2 <- p %>% add_boxplot(x = ~categoria)
+subplot(
+  p1, p2, shareY = TRUE,
+  widths = c(0.2, 0.8), margin = 0
+) %>% hide_legend()
+```
+
+Pueden presentarse datos atipicos al observar la caja de todos los datos, pero al nivel de categorias se observa que los A+ presentan un indice global superior.  Los colegios quee stan en categoria A no se ven tan dispersos sino concentrados alrededor de su mediana (0.7435).  Los que presentan un bajo indice global son los categorizados en la D que a su vez  se ven mas dispersos hacia la parte izquierda (valores inferiores).
+
+
+
+Analicemos la incidencia del indice global con la itreación de la categoria y el area.
+
+```{r}
+plot_ly(ied2019naomit, x = ~ind_global, y = ~interaction(categoria,area)) %>%
+  add_boxplot(color = ~categoria) %>%
+  layout(yaxis = list(title = ""))
+```
+
+
+Nos damos cuenta que pueden existir datos atipicos en los colegios categorizados en A+ y en D.
+
+Los colegios categorizados en A con respecto a las áreas y sus indices globales se ven menos dispersos con respecto a su indice global. Caso contrario a los categorizados en A+.
+
+Los colegios categorizados en B con respecto a su area de gestión se ve una distribución pareja en cada una de esas áreas con respecto a sus indices globales.
+
+
+## Datos Atipicos
+
+Se realiza la exploración de los datos atipicos dentro de la variable numérica indice global.
+
+```{r}
+boxplot.stats(ied2019naomit$ind_global)$out
+```
+
+```{r}
+out <- boxplot.stats(ied2019naomit$ind_global)$out
+out_ind <- which(ied2019naomit$ind_global%in% c(out))
+out_ind
+```
+
+
+**Prueba de Hipótesis para Datos Atipicos**
+
+Se aplica el test de Grubbs para determinar si los datos atipicos dentro del indice global lo son.  Se toma la siguiente pruebas de hipótesis nula y alternativa para el valor mas alto y el valor mas bajo de la distribución de la variable indice global.
+
+
+HO: El valor más alto/bajo es un valor atípico
+
+H1: El valor más alto/bajo no es un valor atípico
+
+```{r}
+test <- grubbs.test(ied2019naomit$ind_global)
+test
+```
+
+
+```{r}
+test <- grubbs.test(ied2019naomit$ind_global, opposite = TRUE)
+test
+```
+
+
+Con pvalor de 0.3766 no se rechaza la hipotesis nula el valor mas alto (0.877) es un avlor atipico.
+
+Lo mismo ocurre cuandos e compara con los valores mas bajos de indice global que presenta un pvalor de 1 con lo cual no se rechaza la hipotesis nula de que el dato de 0.5057 es un dato atipico.
+
+Para nuestro estudio no se retiraran del dataframe ningun valor.
+
+
+
+**Año 2018**
+
+```{r}
+ied2018= ied %>%
+  filter(ano==2018)
+head(ied2018)
+```
+
+
+## Resumen 
+
+```{r}
+summary(ied2018)
+```
+
+
+Para el año 2018 las variables categoricas presentes son localidad, colegio, procesos, categorias, componentes de gestión, criterios y variables numéricas se encuentra en un rango de 0.4851 hasta 0.9082.  El summary indica que en las columnas de los datos numericos se presentan 51 datos faltantes por cada una de ellas.
+
+
+## Análisis de los NA
+
+
+Ahora se realiza el análisis de los datos faltantes.
+
+
+```{r}
+md.pattern(ied2018)
+```
+
+
+Existen 1495 filas que no presentan datos faltantes. Hay 12 filas que presentan al menos 6 datos faltantes y
+39 filas que presentan 7 datos faltantes.  Se observa en la gráfica  que en los indice de matemáticas, lectura, sociales, naturales e inglés hacen falta 51 datos, mientras que en el indice global hacen falta 39.
+
+
+```{r}
+aggr(ied2018,numbers=TRUE)
+```
+
+
+El 96.70% de las listas no tienen datos faltantes. El 3.30% de las listas presentan datos faltantes ubicandose en las columnas de Colegio e indices (lectura, soc, ingl).
+
+
+```{r}
+marginplot(ied2018[c(10,11)])
+```
+
+No se observa un patrón de los datos faltantes.
+
+Como la proporción de datos faltantes representan menos del 5% se procede a retirar los NA.
+
+
+```{r}
+ied2018naomit=na.omit(ied2018)
+```
+
+A continuación se compara la distribución de los datos del dataframe contra la nueva distribución sin NA.
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE} 
+ggp1 <- ggplot(data.frame(value=ied2018$ind_global), aes(x=value)) +
+  geom_histogram(fill="#FBD000", color="#E52521", alpha=0.9) +
+  ggtitle("Distribución Original") +
+  xlab('ind_global') + ylab('Frequency') +
+  theme_ipsum() +
+  theme(plot.title = element_text(size=15))
+
+ggp2 <- ggplot(data.frame(value=ied2018naomit$ind_global), aes(x=value)) +
+  geom_histogram(fill="#43B047", color="#049CD8", alpha=0.9) +
+  ggtitle("Distribución sin NA") +
+  xlab('ind_global') + ylab('Frequency') +
+  theme_ipsum() +
+  theme(plot.title = element_text(size=15))
+
+grid.arrange(ggp1, ggp2, ncol = 2)
+
+```
+
+Mediante las gráficas podemos anotar que las distribuciones permanecen iguales para la variable ind_global con el retiro de los NA.
+
+
+## Análisis de las Variables Categóricas
+
+```{r}
+p1<-plot_ly(ied2018naomit, x= ~localidad)%>%
+  add_histogram()
+
+p2<-plot_ly(ied2018naomit, x= ~procesos)%>%
+  add_histogram()
+
+p3<-plot_ly(ied2018naomit, x= ~area)%>%
+  add_histogram()
+
+p4<-plot_ly(ied2018naomit, x= ~componente_gestion)%>%
+  add_histogram()
+
+p5<-plot_ly(ied2018naomit, x=~criterio)%>%
+  add_histogram()
+
+p6<-plot_ly(ied2018naomit, x=~categoria)%>%
+  add_histogram()
+
+subplot(p1, p2,p3,p4,p5,p6) %>% hide_legend()
+```
+
+
+Para la gráfica de la variable localidad (Azul) los colegios con mayor demanda en planes de mejoramiento se encuentran en la región occidental.
+
+En la gráfica de procesos (naranja) los picos sobresalientes corresponden a AdPFR (administración de recursos y planta física) y SegA (seguimiento académico) procesos correspondientes a Gestión Académica y Gestión Directiva.
+
+
+Las áreas de gestión (verde) presenta una mayor incidencia  la gestión académica, seguida de la gestión directiva.
+
+
+En los componenetes de gestión (rojo) te muestran con mayor preferencia EsF(escuela familiar), seguido de AdReAp (adquisición de recursos para el aprendizaje) y PRfis (prevención de riesgos físicos).  Estos componentes corresponden a la Gestión Comunitaria y Gestión Administrativa respectivamente.
+
+
+En lo que respecta a el criterio observamos que la mayoria de los colegios se encuentran en pertinencia y apropiación dentro de sus planes de mejora. Gráfica (morada).
+
+Enla gráfica de categorias (marrón) observamos que los colegios tienen clasificación en su mayoria "C" seguido de la "B".
+
+
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE} 
+plot_ly(ied2018, x = ~categoria, y = ~area)
+
+```
+
+Al comparar la relación entre las áreas y las categorias se ve que los colegios con categoria "B" trabajan bastante en sus planes de mejoramiento en los componentes de Gestión Académica.
+
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE} 
+plot_ly(ied2018, x = ~area, y = ~procesos)
+
+```
+
+
+En la gráfica relacionamos las áreas y procesos observando que las áreas administrativas tienen dos procesos recurrentes en los planes de mejoramiento: la AdPFR (administración de plata física y recursos), seguida de TaHu (talento humano).  En el área de gestión académica el procesos que mas se presenta es seguimiento académico.  En el área de gestión comunitaria el proceso mas importante es PreR (prevención de riesgos).
+
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE}
+plot_ly(ied2018, x = ~area, y = ~componente_gestion)
+
+```
+
+
+Observando el diagrama de área y componentes de gestión podemos decir nuevamente que las áreas académica, administrativa y comunitaria presentan como componentes mas representativos el seguimiento a egresados(SegE), seguridad y protección (SPRT), escuela fmailia (EscF) respectivamente.
+
+
+```{r, warning=FALSE, cache=FALSE, message=FALSE}
+plot_ly(ied2018, x = ~categoria, y = ~componente_gestion)
+
+```
+
+
+Al relacionar la categoria y los componentes de gestión se ve marcada la tendencia entre los colegios ubicados en la categoria "B" dentro de sus planes de mejoramiento apuntando a los componentes SegEgr (seguimiento a egresados) y EscF (escuela familia).
+
+
+
+## Análisis de las Variables Numéricas
+
+Seleccionamos las columnas numéricas y formamos una nueva base de datos
+
+
+```{r}
+df<- select(ied2018naomit,ind_global,ind_mat,ind_lectura,ind_soc,ind_nat,ind_ingl)
+df=as.data.frame(df)
+```
+
+
+```{r}
+cor(df)
+corrgram(cor(df))
+```
+
+
+De la gráfica podemos anotar que las variables numericas estan asociadas existiendo una fuerte correlación entre ellas.
+
+
+```{r}
+p <- plot_ly(ied2018naomit, color = I("black"),
+             alpha = 0.1, boxpoints = "suspectedoutliers")
+p1 <- p %>% add_boxplot(y = ~ ind_global)
+p2 <- p %>% add_boxplot(y = ~ ind_ingl)
+p3 <- p %>% add_boxplot(y = ~ ind_lectura)
+p4 <- p %>% add_boxplot(y = ~ ind_mat)
+p5 <- p %>% add_boxplot(y = ~ ind_nat)
+p6 <- p %>% add_boxplot(y = ~ ind_soc)
+subplot(
+  p1, p2,p3, p4,p5,p6,  shareY = TRUE,
+  widths = c(0.16, 0.16, 0.16, 0.16, 0.16, 0.16), margin = 0
+) %>% hide_legend ()
+```
+
+
+Existe la posibilidad de presentarse datos atipicos dentro de los valores de cada indice. El comportamiento de la variable indice matemática presenta una mediana de 0.7026 y se representa como el mayor valor entre los demás indices.
+
+Los valores mas bajos los presenta el indice de sociales. 
+
+Los valores mas dispersos los presenta el indice de ingles.
+
+
+Analicemos la relación entre el indice global y la categoría
+
+
+```{r}
+p <- plot_ly(ied2018naomit, y = ~ind_global, color = I("black"),
+             alpha = 0.1, boxpoints = "suspectedoutliers")
+p1 <- p %>% add_boxplot(x = "Overall")
+p2 <- p %>% add_boxplot(x = ~categoria)
+subplot(
+  p1, p2, shareY = TRUE,
+  widths = c(0.2, 0.8), margin = 0
+) %>% hide_legend()
+```
+
+
+Pueden presentarse datos atipicos al observar la caja de todos los datos, pero al nivel de categorias se observa que los A+ presentan un indice global superior.  Los colegios que estan en categoria A no se ven tan dispersos sino concentrados alrededor de su mediana (0.7442).  Los que presentan un bajo indice global son los categorizados en la D que a su vez  se ven mas dispersos hacia la parte izquierda (valores inferiores).
+
+
+
+Analicemos la incidencia del indice global con la itreación de la categoria y el area.
+
+```{r}
+plot_ly(ied2018naomit, x = ~ind_global, y = ~interaction(categoria,area)) %>%
+  add_boxplot(color = ~categoria) %>%
+  layout(yaxis = list(title = ""))
+```
+
+
+Nos damos cuenta que pueden existir datos atipicos en los colegios categorizados en A+ y en D.
+
+Los colegios categorizados en D con respecto a las áreas y sus indices globales se ven menos dispersos con respecto a su indice global. Caso contrario a los categorizados en A+.
+
+Los colegios categorizados en B con respecto a su area de gestión se ve una distribución pareja en cada una de esas áreas con respecto a sus indices globales.
+
+
+## Datos Atipicos
+
+Se realiza la exploración de los datos atipicos dentro de la variable numérica indice global.
+
+```{r}
+boxplot.stats(ied2018naomit$ind_global)$out
+```
+
+
+```{r}
+out <- boxplot.stats(ied2018naomit$ind_global)$out
+out_ind <- which(ied2018naomit$ind_global%in% c(out))
+out_ind
+```
+
+
+**Prueba de Hipótesis para Datos Atipicos**
+
+Se aplica el test de Grubbs para determinar si los datos atipicos dentro del indice global lo son.  Se toma la siguiente pruebas de hipótesis nula y alternativa para el valor mas alto y el valor mas bajo de la distribución de la variable indice global.
+
+
+HO: El valor más alto/bajo es un valor atípico
+
+H1: El valor más alto/bajo no es un valor atípico
+
+
+```{r}
+test <- grubbs.test(ied2018naomit$ind_global)
+test
+```
+
+
+```{r}
+test <- grubbs.test(ied2018naomit$ind_global, opposite = TRUE)
+test
+```
+
+
+Con pvalor de 0.2879 no se rechaza la hipotesis nula el valor mas alto (0.8773) es un avlor atipico.
+
+Lo mismo ocurre cuando se compara con los valores mas bajos de indice global que presenta un pvalor de 1 con lo cual no se rechaza la hipotesis nula de que el dato de 0.5348 es un dato atipico.
+
+Para nuestro estudio no se retiraran del dataframe ningun valor.
+

@@ -1,0 +1,29 @@
+--- 
+title: "ANALISIS EXPLORATORIO DE LOS PLANES DE MEJORAMIENTO"
+author: "ZULMARIS CARRILLO, LUEDIS DUARTE, JESUS AREVALO"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  The HTML output format for this example is bookdown::gitbook,
+  set in the _output.yml file.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# Resumen
+
+El presente proyecto, se enmarca desde una investigación de tipo exploratoria-descriptiva de enfoque cualitativo y cuantitativo interpretativo, la cual surge a partir de la necesidad de orientar al mejoramiento del rendimiento académico de los estudiantes del distrito a través del fortalecimiento de los procesos y practicas pedagógicas al interior de la institución.
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

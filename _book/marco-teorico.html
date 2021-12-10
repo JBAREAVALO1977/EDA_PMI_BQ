@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Marco Teorico | ANALISIS EXPLORATORIO DE LOS PLANES DE MEJORAMIENTO</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Marco Teorico | ANALISIS EXPLORATORIO DE LOS PLANES DE MEJORAMIENTO" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Marco Teorico | ANALISIS EXPLORATORIO DE LOS PLANES DE MEJORAMIENTO" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="ZULMARIS CARRILLO, LUEDIS DUARTE, JESUS AREVALO" />
+
+
+<meta name="date" content="2021-12-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="objetivos.html"/>
+<link rel="next" href="datos.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> RESUMEN</a></li>
+<li class="chapter" data-level="2" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>2</b> Introducción</a></li>
+<li class="chapter" data-level="3" data-path="objetivos.html"><a href="objetivos.html"><i class="fa fa-check"></i><b>3</b> Objetivos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="objetivos.html"><a href="objetivos.html#objetivo-general"><i class="fa fa-check"></i><b>3.1</b> Objetivo General</a></li>
+<li class="chapter" data-level="3.2" data-path="objetivos.html"><a href="objetivos.html#objetivos-especificos"><i class="fa fa-check"></i><b>3.2</b> Objetivos Especificos</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="marco-teorico.html"><a href="marco-teorico.html"><i class="fa fa-check"></i><b>4</b> Marco Teorico</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="marco-teorico.html"><a href="marco-teorico.html#descentralización-y-autonomía-institucional"><i class="fa fa-check"></i><b>4.1</b> Descentralización y autonomía institucional</a></li>
+<li class="chapter" data-level="4.2" data-path="marco-teorico.html"><a href="marco-teorico.html#mejoramiento-institucional"><i class="fa fa-check"></i><b>4.2</b> Mejoramiento institucional</a></li>
+<li class="chapter" data-level="4.3" data-path="marco-teorico.html"><a href="marco-teorico.html#procesos-y-componentes-en-la-gestión-para-el-mejoramiento-institucional"><i class="fa fa-check"></i><b>4.3</b> Procesos y componentes en la gestión para el mejoramiento institucional</a></li>
+<li class="chapter" data-level="4.4" data-path="marco-teorico.html"><a href="marco-teorico.html#ruta-de-mejoramiento-institucional"><i class="fa fa-check"></i><b>4.4</b> Ruta de mejoramiento institucional</a></li>
+<li class="chapter" data-level="4.5" data-path="marco-teorico.html"><a href="marco-teorico.html#indicadores-de-resultados"><i class="fa fa-check"></i><b>4.5</b> Indicadores de resultados</a></li>
+<li class="chapter" data-level="4.6" data-path="marco-teorico.html"><a href="marco-teorico.html#clasificación-de-planteles"><i class="fa fa-check"></i><b>4.6</b> Clasificación de planteles</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>5</b> Datos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="datos.html"><a href="datos.html#llamada-de-los-datos-de-heroku"><i class="fa fa-check"></i><b>5.1</b> Llamada de los datos de Heroku</a></li>
+<li class="chapter" data-level="5.2" data-path="datos.html"><a href="datos.html#tratamiento-de-datos"><i class="fa fa-check"></i><b>5.2</b> Tratamiento de Datos</a></li>
+<li class="chapter" data-level="5.3" data-path="datos.html"><a href="datos.html#resumen-1"><i class="fa fa-check"></i><b>5.3</b> Resumen</a></li>
+<li class="chapter" data-level="5.4" data-path="datos.html"><a href="datos.html#análisis-de-los-na"><i class="fa fa-check"></i><b>5.4</b> Análisis de los NA</a></li>
+<li class="chapter" data-level="5.5" data-path="datos.html"><a href="datos.html#análisis-de-las-variables-categóricas"><i class="fa fa-check"></i><b>5.5</b> Análisis de las Variables Categóricas</a></li>
+<li class="chapter" data-level="5.6" data-path="datos.html"><a href="datos.html#análisis-de-las-variables-numéricas"><i class="fa fa-check"></i><b>5.6</b> Análisis de las Variables Numéricas</a></li>
+<li class="chapter" data-level="5.7" data-path="datos.html"><a href="datos.html#datos-atipicos"><i class="fa fa-check"></i><b>5.7</b> Datos Atipicos</a></li>
+<li class="chapter" data-level="5.8" data-path="datos.html"><a href="datos.html#resumen-2"><i class="fa fa-check"></i><b>5.8</b> Resumen</a></li>
+<li class="chapter" data-level="5.9" data-path="datos.html"><a href="datos.html#análisis-de-los-na-1"><i class="fa fa-check"></i><b>5.9</b> Análisis de los NA</a></li>
+<li class="chapter" data-level="5.10" data-path="datos.html"><a href="datos.html#análisis-de-las-variables-categóricas-1"><i class="fa fa-check"></i><b>5.10</b> Análisis de las Variables Categóricas</a></li>
+<li class="chapter" data-level="5.11" data-path="datos.html"><a href="datos.html#análisis-de-las-variables-numéricas-1"><i class="fa fa-check"></i><b>5.11</b> Análisis de las Variables Numéricas</a></li>
+<li class="chapter" data-level="5.12" data-path="datos.html"><a href="datos.html#datos-atipicos-1"><i class="fa fa-check"></i><b>5.12</b> Datos Atipicos</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ANALISIS EXPLORATORIO DE LOS PLANES DE MEJORAMIENTO</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="marco-teorico" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Marco Teorico</h1>
+<div id="descentralización-y-autonomía-institucional" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Descentralización y autonomía institucional</h2>
+<p>El Ministerio de Educación Nacional (MEN) (2008), encuentra necesario procurar la descentralización del sistema educativo con el objeto de fomentar y fortalecer la autonomía institucional, en tanto, las instituciones educativas del país y los educadores vinculados a las mismas (desde el rol de rectores, docentes, entre otros) deben asumir un papel activo en torno a los temas pedagógicos y la formación docente.</p>
+<p>Por consiguiente, la descentralización genera una apertura de posibilidades para el fomento y difusión de la innovación educativa, el liderazgo institucional, el desarrollo de proyectos pedagógicos autónomos, y a su vez, favorece el garantizar el acceso y la cobertura educativa en los contextos locales de forma pertinente, al dar respuesta a las necesidades y requerimientos locales de manera coordinada, coherente, eficiente y oportuna.</p>
+<p>De tal forma, que bajo la Ley de Competencias y Recursos de 1993; La Ley General de Educación de 1994; y la Ley 715 de 2001. El MEN determinó una política a partir de la cual su rol pasó a ser el de ejercer vigilancia y control sobre el servicio educativo prestado a nivel nacional. Mientras a cada entidad educativa certificada, a nivel departamental, distrital y municipal, se le confirió la autoridad jurisdiccional para de manera autónoma dar atención a las necesidades de la población local (MEN, 2008).</p>
+<p>Esta autonomía a su vez conlleva la responsabilidad de elaborar y desarrollar los proyectos educativos institucionales (PEI); planes de estudio; métodos pedagógicos; y la forma de organizar el trabajo. El gobierno escolar, también se consolido como un organismo capaz de representar los intereses de cada miembro de la comunidad educativa a partir de una postura democrática.</p>
+<p>La descentralización política y administrativa colombiana ha sido fundamental para permitir el posicionamiento de los establecimientos educativos como espacios donde se materializa la educación pertinente y de calidad para todos, a través de proyectos concretos, definidos y concertados por toda la comunidad educativa (MEN, 2008, p. 14).</p>
+<p>Ahora bien, el propósito de garantizar la descentralización partía de un principio de equidad, a partir del cual se buscó garantizar que todos los niños, niñas y jóvenes del país accedieran a un ciclo completo de educación básica (Preescolar, básica y media).</p>
+<p>La autonomía escolar brindada a cada establecimiento para definir su identidad y plasmar esto en sus respectivos PEI, permitió generar una mayor organización en los planes de estudio en lo que respecta a las áreas fundamentales, los lineamientos curriculares, estándares básicos de competencias, entre otras características a partir de las cuales se aludía a la inclusión y diversidad social.</p>
+<p>Sin embargo, estos procesos, debían generar un principio de integración desde la unificación de los proyectos educativos institucionales. En tanto, resulta necesario establecer condiciones de conciliación a las cuales debe responder cada entidad educativa para abordar un mismo horizonte institucional en el país. Al contemplar la necesidad de fortalecer los ciclos de educación básica y disminuir los índices de deserción académica
+De allí, que se considere:</p>
+<p>Que todos los integrantes de la comunidad educativa puedan trabajar en un proyecto común, fruto de la concertación y el consenso alrededor del propósito de garantizar la mejor educación para todos los estudiantes, sin importar sus orígenes, ni sus condiciones sociales, económicas y culturales (MEN, 2008, p. 14).</p>
+<p>Razón por la cual, para conseguir esta meta resulta indispensable que las entidades establezcan acciones de planeación, seguimiento y evaluación. En tanto, la comunicación y el trabajo en equipo se consolidan como aspectos fundamentales que deben ser integrados por la comunidad educativa para procurar el logro de sus principios institucionales.</p>
+<p>La comunicación resulta un elemento clavé, debido a que se reconoce como un proceso fundamental que implica poner en práctica la habilidad de escucha, para transmitir una idea o mensaje, determinando pautas para generar un proceso de retroalimentación.</p>
+<p>El trabajo en equipo, por otra parte facilita la consolidación de la toma de decisiones, fortaleciendo los aprendizajes individuales y colectivos. De tal forma que al trabajar en conjunto “aumentan las posibilidades de tener resultados y productos más sólidos, pues todos los integrantes del equipo se vinculan para aportar sus ideas, experiencias y conocimientos” (p. 15).</p>
+<p>La utilización de estos datos, guía el accionar para generar una ruta de mejoramiento institucional. A partir de la cual se establezcan estrategias para determinar si se han alcanzado los resultados deseados, o se deben generar procesos de evaluación y ajuste.</p>
+</div>
+<div id="mejoramiento-institucional" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Mejoramiento institucional</h2>
+<p>Los establecimientos educativos deben incentivar una educación de calidad, de allí que para lograr que los estudiantes logren un nivel satisfactorio en torno al desarrollo de competencias y potencien sus capacidades, participando de la formación de ciudadanos integrales. Resulta necesario fortalecer el sistema de aseguramiento el cual se constituye por tres elementos: los estándares básicos de competencias para las áreas fundamentales; la evaluación institucional; y el mejoramiento (MEN, 2008).</p>
+<p>En tal sentido, se comprenden los estándares básicos de competencias, como criterios claros que orientan el diseño curricular de los planes de estudio; la definición de estrategias pedagógicas y las rubricas de evaluación del aprendizaje. De igual forma, estos establecen parámetros mínimos que deben adquirir los estudiantes en su ciclo de aprendizaje.</p>
+<p>La evaluación, por su parte, se sustenta en el cumplimiento de objetivos y metas, de tal forma que permiten delimitar las acciones a seguir para procurar la optimización de los resultados obtenidos por una entidad. En este caso, las evaluaciones se realizan periódicamente (Pruebas Saber), brindan información sobre los conocimientos formativos de las áreas fundamentales, y facilitan el identificar fortalezas y necesidades de formación con el objeto de superar las dificultades y barreras de aprendizaje que puedan ser identificadas (MEN, 2008).</p>
+<p>El mejoramiento, por ende, resulta el tercer elemento del ciclo de calidad, y se logra al fortalecer las capacidades institucionales en torno a la formulación, ejecución, y seguimiento de resultados de los planes de mejoramiento institucional.</p>
+</div>
+<div id="procesos-y-componentes-en-la-gestión-para-el-mejoramiento-institucional" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Procesos y componentes en la gestión para el mejoramiento institucional</h2>
+<p>La gestión institucional abarca diferentes áreas, procesos y componentes, que permiten a las entidades educativas desarrollar sus capacidades y articular sus procesos internos para cumplir sus objetivos y propósitos. Todos ellos, aspectos que deben contemplarse al determinar una ruta de mejoramiento institucional.</p>
+<p>A continuación, la Tabla 1, presenta los procesos y componentes de la gestión institucional.</p>
+<p><img src="1.jpg" /></p>
+<p><img src="2.jpg" /></p>
+<p><img src="3.jpg" />
+<img src="4.jpg" /></p>
+</div>
+<div id="ruta-de-mejoramiento-institucional" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Ruta de mejoramiento institucional</h2>
+<p>Son tres los ámbitos que deben considerarse al establecer una ruta de mejoramiento institucional. Estos se consideran como las etapas de autoevaluación institucional, elaboración del plan de mejoramiento, y seguimiento – evaluación.
+En primera instancia la autoevaluación permite recopilar, sistematizar, analizar y valorar las fortalezas y debilidades de las cuatro áreas de gestión institucional, de tal forma, que estos aspectos sirven de base para la formulación del plan de mejoramiento.</p>
+<p>Resulta necesario mencionar que entre los elementos contemplados en el mejoramiento institucional, desde la etapa de autoevaluación, se encuentran cuatro fases, a considerar, las cuales, a continuación, se presentan en la Ilustración 1, autoevaluación institucional a partir de las áreas de gestión institucional.</p>
+<p><img src="5.jpg" /></p>
+<p>Luego de esto, se prevé la segunda etapa, la cual consiste en la formulación del plan de mejoramiento, en el cual se definen objetivos, metas, indicadores de resultados, actividades, tiempos y responsables para el logro de objetivos y propósitos.</p>
+<p>Ahora bien, los objetivos deben establecerse considerando un plazo de tres años para la implementación del plan de mejoramiento. Mientras a su vez se consideras factores críticos internos y externos que afectan el desempeño institucional. Para ello, se contemplan los criterios de urgencia (necesidad de superación de un factor crítico); tendencia (agravantes de la situación institucional); e impacto (incidencia en la consecución de resultados).</p>
+<p>Finalmente, en última instancia, se considera el seguimiento periódico del desarrollo del plan de mejoramiento, de tal forma que se observa la consecución de resultados y la necesidad de establecer ajustes que conlleven al logro de las metas iniciales definidas.</p>
+</div>
+<div id="indicadores-de-resultados" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Indicadores de resultados</h2>
+<p>Los indicadores permiten delimitar el seguimiento y evaluación de un logro, debido a que facilitan la medición de un resultado, y por ende el ajuste situacional para la toma de medidas correctivas.</p>
+<p>“Se conciben como una expresión numérica entre dos o más variables que permiten medir, evaluar y comparar en el tiempo el desempeño de los procesos, productos y servicios del establecimiento educativo, de acuerdo con sus objetivos estratégicos y metas” (MEN, 2008, p. 58).</p>
+<p>En tanto, como expresiones numéricas, estos deben estar bien definidos. De tal forma que a la hora de elaborar un indicador un investigador debe contemplar que estos sean: relevantes y pertinentes; exactos y consistentes; objetivos; mensurables; fácilmente interpretables, viables; cotejables; válidos; perdurables; y servir de apoyo para la toma de decisiones.</p>
+<p>Razón por la cual resulta necesario señalar de acuerdo con el MEN (2008), y MEN (2013), entre los indicadores que existen se contemplan los:</p>
+<p>De proceso: Los cuales brindan información durante un proceso a través del monitoreo de la información, sentando bases que permitan efectuar medidas correctivas en caso de ser necesario.</p>
+<p>De resultado: Estos miden los efectos obtenidos durante un proceso y al éxito o fracaso en el logro de metas y resultados deseados.</p>
+<p>Por otra parte, la Tabla 2, presenta un formato contemplado en la definición de indicadores.</p>
+<p><img src="6.jpg" /></p>
+</div>
+<div id="clasificación-de-planteles" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Clasificación de planteles</h2>
+<p>En el proceso de mejoramiento institucional, los exámenes efectuados por el Estado, a través de las Pruebas Saber, permiten establecer procesos para identificar fortalezas y debilidades institucionales.</p>
+<p>De allí que a partir de la obtención de estos resultados, se genera una clasificación de los planteles, a los cuales se les asigna una determinada categoría, dependiendo de los resultados arrojados en las Pruebas Saber 11.</p>
+<p>Esta clasificación establece los niveles: A+; A; B; C; y D. Entendiendo A+ como la clasificación otorgada a los colegios con los mejores desempeños académicos, y D a aquellos con los desempeños más bajos (Ochoa, 2020).</p>
+<p>Resulta necesario considerar que la clasificación no toma en cuenta los resultados del último año en que se presentan estas pruebas, sino que por el contrario considera los resultados institucionales obtenidos en los últimos 3 años.</p>
+<p>Por consiguiente resulta necesario determinar un índice por áreas, el cual parte de la definición del grupo de notas sobre el cual se realizara el cálculo; el promedio de las frecuencias acumuladas obtenidas por los estudiantes en cada puntaje posible, desde 100 hasta 0, resultado que luego se divide en 1 menos la varianza de dichas frecuencias (Ochoa, 2020).</p>
+<p>Para calcular este índice, el MEN (2014), sugiere utilizar la siguiente formula:</p>
+<p><span class="math display">\[I_{p}=\frac{\mu _{Fp}}{1-\sigma _{Fp}^{2}}\]</span></p>
+<p>Por otra parte se busca obtener un índice global, el cual corresponde al promedio ponderado de los índices de las áreas de lectura crítica, matemáticas, ciencias naturales, sociales y ciudadanas, e inglés, a las cuales, de acuerdo con la Tabla 3, se les asignan las siguientes puntuaciones.</p>
+<p><img src="7.jpg" /></p>
+<p>Mientras a su vez, se utiliza la siguiente formula en la determinación del índice global (MEN, 2014):</p>
+<p><span class="math display">\[I_{G}=\frac{\left ( I_{M}*3 \right )+\left ( I_{LC}*3 \right )+\left ( I_{CN}*3 \right )+\left ( I_{SCC}*3 \right )+\left ( I_{I}*3 \right )}{13}\]</span></p>
+<p>El índice global obtenido, refleja a su vez la clasificación que será otorgada a un establecimiento educativo específico, según el rango en el cual se ubique a la institución, tal como presenta la Tabla 4.</p>
+<p><img src="8.jpg" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="objetivos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Marco-Teorico.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

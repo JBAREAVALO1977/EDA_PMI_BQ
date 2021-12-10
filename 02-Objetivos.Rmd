@@ -1,0 +1,15 @@
+# Objetivos
+
+## Objetivo General
+
+Desarrollar un EDA a partir de una base de datos suministrada por la Secretaría de Eduación Distrital.
+
+
+## Objetivos Especificos
+
+
+1. Tratamiento de los datos
+2. Descripción de los datos
+3. Relación entre datos categóricos y numéricos
+4. Verificación de datos faltantes y datos atípicos
+

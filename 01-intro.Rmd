@@ -1,0 +1,8 @@
+# Introducción
+
+Este trabajo consiste en un analisis exploratorio de la base de datos de los 154 colegios del distrito de Barranquilla, con respecto a sus planes de mejoramiento , categorias e índices de desempeño en las pruebas ICFES comprendido  en los años 2018 y 2019.
+ 
+Los planes de mejoramiento son resultado de una evaluación institucional realizada anualmente por cada uno de los colegios del distrito siguiendo la guía 34 emitida por el Ministerio de Educación Nacional.  Las categorias y los índices de desempeño son resultado del comportamiento de los estudiantes de la institución de la prueba de estado.
+
+
+
